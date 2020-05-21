@@ -7,9 +7,9 @@
 
 using namespace std;
 
-int main() {
-
-	char path[] = "D:\\4sem\\APK\\Lab7Client\\Debug\\Lab7Client.exe";
+int main(int argc, char** argv) 
+{
+	if (argc == 1) return 0;
 
 	HANDLE hWrite = CreateFile("COM1", GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
 	if (!hWrite) 
@@ -30,8 +30,7 @@ int main() {
 	si.cb = sizeof(STARTUPINFO);			
 	PROCESS_INFORMATION procInfo;					
 	ZeroMemory(&procInfo, sizeof(PROCESS_INFORMATION));	
-
-	if (!CreateProcess(NULL, path, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &procInfo))
+	if (!CreateProcess(NULL, argv[1], NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &procInfo))
 	{
 		cout << "CreateProcess failed " << GetLastError() << endl; ;
 		return 0;
